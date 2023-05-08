@@ -5,7 +5,7 @@ import android.provider.BaseColumns
 
 class TabelaJogos(db: SQLiteDatabase) : TabelaBD(db, NOME_TABELA) {
     override fun cria() {
-        
+
     }
 
     companion object {
