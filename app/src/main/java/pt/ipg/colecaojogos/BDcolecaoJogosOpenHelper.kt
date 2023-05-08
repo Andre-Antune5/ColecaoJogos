@@ -12,6 +12,9 @@ class BDcolecaoJogosOpenHelper(
     context: Context?
 ) : SQLiteOpenHelper(context, NOME_BASE_DADOS, null, VERSAO_BASE_DADOS) {
     override fun onCreate(db: SQLiteDatabase?) {
+        requireNotNull(db)
+        TabelaCategorias(db!!).cria()
+        TabelaJogos(db).cria()
     }
 
     override fun onUpgrade(p0: SQLiteDatabase?, oldVersion: Int, p2: Int) {
