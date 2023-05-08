@@ -43,4 +43,10 @@
         libero vel nunc consequat, quis tincidunt nisl eleifend. Cras bibendum enim a justo luctus
         vestibulum. Fusce dictum libero quis erat maximus, vitae volutpat diam dignissim.
     </string>
+    <string name="jogos">Jogos</string>
+    <string name="categorias">Categorias</string>
+    <string name="pesquisa">Pesquisa</string>
+    <string name="sobre">Sobre</string>
+    <string name="base_de_dados_que_consiste_em_duas_tabelas_jogos_e_categorias">Base de dados que consiste em duas tabelas: jogos e categorias.</string>
+    <string name="voltar">Voltar</string>
 </resources>

@@ -15,7 +15,8 @@
             android:id="@+id/textView_sobreTitulo"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Sobre"
+            android:text="@string/sobre"
+            android:textAppearance="@style/TextAppearance.AppCompat.Large"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
@@ -29,7 +30,7 @@
             android:layout_marginTop="8dp"
             android:layout_marginEnd="8dp"
             android:layout_marginRight="8dp"
-            android:text="Base de dados que consiste em duas tabelas: jogos e categorias."
+            android:text="@string/base_de_dados_que_consiste_em_duas_tabelas_jogos_e_categorias"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/textView_sobreTitulo" />
@@ -43,7 +44,7 @@
             android:layout_marginTop="16dp"
             android:layout_marginEnd="8dp"
             android:layout_marginRight="8dp"
-            android:text="Voltar"
+            android:text="@string/voltar"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/textView_sobreTexto" />
