@@ -8,7 +8,7 @@ private const val NOME_BASE_DADOS = "jogos.db"
 
 private const val VERSAO_BASE_DADOS = 1
 
-class BDcolecaoJogosOpenHelper(
+class BDJogosOpenHelper(
     context: Context?
 ) : SQLiteOpenHelper(context, NOME_BASE_DADOS, null, VERSAO_BASE_DADOS) {
     override fun onCreate(db: SQLiteDatabase?) {
