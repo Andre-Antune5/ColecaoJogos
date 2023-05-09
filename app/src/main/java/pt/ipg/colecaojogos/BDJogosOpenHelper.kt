@@ -3,8 +3,7 @@ package pt.ipg.colecaojogos
 import android.content.Context
 import android.database.sqlite.SQLiteDatabase
 import android.database.sqlite.SQLiteOpenHelper
-
-private const val NOME_BASE_DADOS = "jogos.db"
+import android.provider.BaseColumns
 
 private const val VERSAO_BASE_DADOS = 1
 
@@ -18,5 +17,9 @@ class BDJogosOpenHelper(
     }
 
     override fun onUpgrade(p0: SQLiteDatabase?, oldVersion: Int, p2: Int) {
+    }
+
+    companion object {
+        const val NOME_BASE_DADOS = "jogos.db"
     }
 }
