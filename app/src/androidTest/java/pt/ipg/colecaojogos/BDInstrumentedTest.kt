@@ -40,8 +40,8 @@ class BDInstrumentedTest {
         val openHelper = BDJogosOpenHelper(getAppContext())
         val bd = openHelper.writableDatabase //conseguir escrever na base de dados
 
-        //val categoria = Categoria("Terror")
-
-        //TabelaCategorias(bd).insere()
+        val categoria = Categoria("Terror", 16, "Test")
+        val id = TabelaCategorias(bd).insere(categoria.toContentValues())
+        assertNotEquals(-1, id)
     }
 }
