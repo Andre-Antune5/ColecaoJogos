@@ -2,6 +2,7 @@ package pt.ipg.colecaojogos
 
 import android.content.Context
 import android.database.sqlite.SQLiteDatabase
+import android.provider.BaseColumns
 import androidx.test.platform.app.InstrumentationRegistry
 import androidx.test.ext.junit.runners.AndroidJUnit4
 
@@ -22,15 +23,14 @@ class BDInstrumentedTest {
 
     private fun getWritableDataBase(): SQLiteDatabase {
         val openHelper = BDJogosOpenHelper(getAppContext())
-        val bd = openHelper.writableDatabase //conseguir escrever na base de dados
-        return bd
+        return openHelper.writableDatabase
     }
 
     private fun insereCategoria(
         bd: SQLiteDatabase,
         categoria: Categoria
     ) {
-        val id = TabelaCategorias(bd).insere(categoria.toContentValues())
+        categoria.id = TabelaCategorias(bd).insere(categoria.toContentValues())
         assertNotEquals(-1, categoria.id)
     }
 
@@ -64,7 +64,7 @@ class BDInstrumentedTest {
     }
 
     @Test
-    fun consegueInserirJogo() {
+    fun consegueInserirJogos() {
         val bd = getWritableDataBase()
 
         val categoria = Categoria("Terror", 16, "Test")
@@ -75,5 +75,18 @@ class BDInstrumentedTest {
 
         val jogo2 = Jogo("FNAT", "Desenvolvedor", "Fevereiro 2022", 19.99, categoria.id)
         insereJogo(bd, jogo2)
+    }
+
+    @Test
+    fun consegueLerCategorias() {
+        val bd = getWritableDataBase()
+
+        val categCorrida = Categoria("Corrida", 8, "Test")
+        insereCategoria(bd, categCorrida)
+
+        val categFPS = Categoria("FPS", 16, "Test")
+        insereCategoria(bd, categFPS)
+
+        val resultado = TabelaCategorias(bd).consulta(TabelaCategorias.CAMPOS, "${BaseColumns._ID}=?", arrayOf(categFPS.id.toString()), null, null, null)
     }
 }

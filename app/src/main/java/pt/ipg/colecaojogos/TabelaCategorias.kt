@@ -1,6 +1,7 @@
 package pt.ipg.colecaojogos
 
 import android.database.sqlite.SQLiteDatabase
+import android.provider.BaseColumns
 
 class TabelaCategorias(db: SQLiteDatabase) : TabelaBD(db, NOME_TABELA) {
     override fun cria() {
@@ -12,5 +13,7 @@ class TabelaCategorias(db: SQLiteDatabase) : TabelaBD(db, NOME_TABELA) {
         const val CAMPO_NOME = "nome"
         const val CAMPO_IDADE_MIN = "idadeMin"
         const val CAMPO_MAIS_VENDIDO = "maisVendido"
+
+        val CAMPOS = arrayOf(BaseColumns._ID, CAMPO_NOME, CAMPO_IDADE_MIN, CAMPO_MAIS_VENDIDO)
     }
 }
