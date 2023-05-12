@@ -1,6 +1,7 @@
 package pt.ipg.colecaojogos
 
 import android.content.Context
+//import android.database.Cursor
 import android.database.sqlite.SQLiteDatabase
 import android.provider.BaseColumns
 import androidx.test.platform.app.InstrumentationRegistry
@@ -87,6 +88,17 @@ class BDInstrumentedTest {
         val categFPS = Categoria("FPS", 16, "Test")
         insereCategoria(bd, categFPS)
 
-        val resultado = TabelaCategorias(bd).consulta(TabelaCategorias.CAMPOS, "${BaseColumns._ID}=?", arrayOf(categFPS.id.toString()), null, null, null)
+        val tabelaCategorias = TabelaCategorias(bd)
+        val cursor = tabelaCategorias.consulta(TabelaCategorias.CAMPOS, "${BaseColumns._ID}=?", arrayOf(categFPS.id.toString()), null, null, null)
+
+        assert(cursor.moveToNext()) //move cursor para o primeiro registo
+
+        val categBD = Categoria.fromCursor(cursor)
+
+        assertEquals(categFPS, categBD)
+
+        val cursorTodasCategorias = tabelaCategorias.consulta(TabelaCategorias.CAMPOS, null, null, null, null, TabelaCategorias.CAMPO_NOME)
+
+        assert(cursorTodasCategorias.count > 1)
     }
 }
