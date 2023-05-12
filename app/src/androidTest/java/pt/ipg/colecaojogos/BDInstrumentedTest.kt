@@ -26,12 +26,22 @@ class BDInstrumentedTest {
 
     @Test
     fun consegueAbrirBaseDados() {
-        val openHelper = BDJogosOpenHelper(getAppContext())
-        val bd = openHelper.readableDatabase
+        val openHelper = BDJogosOpenHelper(getAppContext()) //permite abrir a base de dados
+        val bd = openHelper.readableDatabase //conseguir ler na base de dados
         assert(bd.isOpen)
 
         // Context of the app under test.
         val appContext = getAppContext()
         assertEquals("pt.ipg.colecaojogos", appContext.packageName)
+    }
+
+    @Test
+    fun consegueInserirCategorias() {
+        val openHelper = BDJogosOpenHelper(getAppContext())
+        val bd = openHelper.writableDatabase //conseguir escrever na base de dados
+
+        //val categoria = Categoria("Terror")
+
+        //TabelaCategorias(bd).insere()
     }
 }
