@@ -2,7 +2,7 @@ package pt.ipg.colecaojogos
 
 import android.content.ContentValues
 
-class Jogo (var nome: String, var id: Long = -1, var desenvolvedor: String, var data: String, var preco: Double, var id_categoria: Int) {
+class Jogo (var nome: String, var desenvolvedor: String, var data: String, var preco: Double, var id_categoria: Long, var id: Long = -1) {
     fun toContentValues(): ContentValues {
         val valores = ContentValues()
 

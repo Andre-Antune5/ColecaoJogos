@@ -1,6 +1,7 @@
 package pt.ipg.colecaojogos
 
 import android.content.Context
+import android.database.sqlite.SQLiteDatabase
 import androidx.test.platform.app.InstrumentationRegistry
 import androidx.test.ext.junit.runners.AndroidJUnit4
 
@@ -18,6 +19,25 @@ import org.junit.Before
 @RunWith(AndroidJUnit4::class)
 class BDInstrumentedTest {
     private fun getAppContext(): Context = InstrumentationRegistry.getInstrumentation().targetContext
+
+    private fun getWritableDataBase(): SQLiteDatabase {
+        val openHelper = BDJogosOpenHelper(getAppContext())
+        val bd = openHelper.writableDatabase //conseguir escrever na base de dados
+        return bd
+    }
+
+    private fun insereCategoria(
+        bd: SQLiteDatabase,
+        categoria: Categoria
+    ) {
+        val id = TabelaCategorias(bd).insere(categoria.toContentValues())
+        assertNotEquals(-1, categoria.id)
+    }
+
+    private fun insereJogo(bd: SQLiteDatabase, jogo: Jogo) {
+        jogo.id = TabelaJogos(bd).insere(jogo.toContentValues())
+        assertNotEquals(-1, jogo.id)
+    }
 
     @Before
     fun apagaNaseDados() {
@@ -37,11 +57,23 @@ class BDInstrumentedTest {
 
     @Test
     fun consegueInserirCategorias() {
-        val openHelper = BDJogosOpenHelper(getAppContext())
-        val bd = openHelper.writableDatabase //conseguir escrever na base de dados
+        val bd = getWritableDataBase()
 
         val categoria = Categoria("Terror", 16, "Test")
-        val id = TabelaCategorias(bd).insere(categoria.toContentValues())
-        assertNotEquals(-1, id)
+        insereCategoria(bd, categoria)
+    }
+
+    @Test
+    fun consegueInserirJogo() {
+        val bd = getWritableDataBase()
+
+        val categoria = Categoria("Terror", 16, "Test")
+        insereCategoria(bd, categoria)
+
+        val jogo1 = Jogo("Alien", "Desenvolvedor", "Janeiro 2022", 10.50, categoria.id)
+        insereJogo(bd, jogo1)
+
+        val jogo2 = Jogo("FNAT", "Desenvolvedor", "Fevereiro 2022", 19.99, categoria.id)
+        insereJogo(bd, jogo2)
     }
 }
