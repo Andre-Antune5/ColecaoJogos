@@ -15,5 +15,7 @@ class TabelaJogos(db: SQLiteDatabase) : TabelaBD(db, NOME_TABELA) {
         const val CAMPO_DATA = "data"
         const val CAMPO_PRECO = "preco"
         const val CAMPO_FK_CATEGORIA = "id_categoria"
+
+        val CAMPOS = arrayOf(BaseColumns._ID, CAMPO_NOME, CAMPO_DESENVOLVEDOR,CAMPO_DATA, CAMPO_PRECO, CAMPO_FK_CATEGORIA)
     }
 }

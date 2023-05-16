@@ -41,7 +41,7 @@ class BDInstrumentedTest {
     }
 
     @Before
-    fun apagaNaseDados() {
+    fun apagaBaseDados() {
         getAppContext().deleteDatabase(BDJogosOpenHelper.NOME_BASE_DADOS)
     }
 
@@ -100,5 +100,32 @@ class BDInstrumentedTest {
         val cursorTodasCategorias = tabelaCategorias.consulta(TabelaCategorias.CAMPOS, null, null, null, null, TabelaCategorias.CAMPO_NOME)
 
         assert(cursorTodasCategorias.count > 1)
+    }
+
+    @Test
+    fun consegueLerJogos() {
+        val bd = getWritableDataBase()
+
+        val categoria = Categoria("FPS", 16, "Test")
+        insereCategoria(bd, categoria)
+
+        val jogo1 = Jogo("Fortnite", "Desenvolvedor", "Marco 2022", 4.99, categoria.id)
+        insereJogo(bd, jogo1)
+
+        val jogo2 = Jogo("Valorant", "Desenvolvedor", "Abril 2022", 4.99, categoria.id)
+        insereJogo(bd, jogo2)
+
+        val tabelaJogos = TabelaJogos(bd)
+        val cursor = tabelaJogos.consulta(TabelaCategorias.CAMPOS, "${BaseColumns._ID}=?", arrayOf(jogo1.id.toString()), null, null, null)
+
+        assert(cursor.moveToNext()) //move cursor para o primeiro registo
+
+        val jogoBD = Jogo.fromCursor(cursor)
+
+        assertEquals(jogo1, jogoBD)
+
+        val cursorTodosJogos = tabelaJogos.consulta(TabelaJogos.CAMPOS, null, null, null, null, TabelaJogos.CAMPO_NOME)
+
+        assert(cursorTodosJogos.count > 1)
     }
 }
