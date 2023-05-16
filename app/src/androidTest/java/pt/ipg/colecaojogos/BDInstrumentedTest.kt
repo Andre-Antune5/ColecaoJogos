@@ -12,6 +12,7 @@ import org.junit.runner.RunWith
 
 import org.junit.Assert.*
 import org.junit.Before
+import java.util.*
 
 /**
  * Instrumented test, which will execute on an Android device.
@@ -71,10 +72,14 @@ class BDInstrumentedTest {
         val categoria = Categoria("Terror", 16, "Test")
         insereCategoria(bd, categoria)
 
-        val jogo1 = Jogo("Alien", "Desenvolvedor", "Janeiro 2022", 10.50, categoria.id)
+        val data1 = Calendar.getInstance()
+        data1.set(2022, 1, 1)
+        val jogo1 = Jogo("Alien", "Desenvolvedor", data1, 10.50, categoria.id)
         insereJogo(bd, jogo1)
 
-        val jogo2 = Jogo("FNAT", "Desenvolvedor", "Fevereiro 2022", 19.99, categoria.id)
+        val data2 = Calendar.getInstance()
+        data2.set(2022, 2, 1)
+        val jogo2 = Jogo("FNAT", "Desenvolvedor", data2, 19.99, categoria.id)
         insereJogo(bd, jogo2)
     }
 
@@ -109,14 +114,18 @@ class BDInstrumentedTest {
         val categoria = Categoria("FPS", 16, "Test")
         insereCategoria(bd, categoria)
 
-        val jogo1 = Jogo("Fortnite", "Desenvolvedor", "Marco 2022", 4.99, categoria.id)
+        val data1 = Calendar.getInstance()
+        data1.set(2022, 3, 1)
+        val jogo1 = Jogo("Fortnite", "Desenvolvedor", data1, 4.99, categoria.id)
         insereJogo(bd, jogo1)
 
-        val jogo2 = Jogo("Valorant", "Desenvolvedor", "Abril 2022", 4.99, categoria.id)
+        val data2 = Calendar.getInstance()
+        data2.set(2022, 4, 1)
+        val jogo2 = Jogo("Valorant", "Desenvolvedor", data2, 4.99, categoria.id)
         insereJogo(bd, jogo2)
 
         val tabelaJogos = TabelaJogos(bd)
-        val cursor = tabelaJogos.consulta(TabelaCategorias.CAMPOS, "${BaseColumns._ID}=?", arrayOf(jogo1.id.toString()), null, null, null)
+        val cursor = tabelaJogos.consulta(TabelaJogos.CAMPOS, "${BaseColumns._ID}=?", arrayOf(jogo1.id.toString()), null, null, null)
 
         assert(cursor.moveToNext()) //move cursor para o primeiro registo
 
