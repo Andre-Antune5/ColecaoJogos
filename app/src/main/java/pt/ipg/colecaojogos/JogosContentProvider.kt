@@ -6,8 +6,10 @@ import android.database.Cursor
 import android.net.Uri
 
 class JogosContentProvider : ContentProvider() {
+    private var bdOpenHelper : BDJogosOpenHelper? = null
+
     override fun onCreate(): Boolean {
-        TODO("Not yet implemented")
+        bdOpenHelper = BDJogosOpenHelper(context)
     }
 
     override fun query(
