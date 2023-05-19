@@ -137,4 +137,45 @@ class BDInstrumentedTest {
 
         assert(cursorTodosJogos.count > 1)
     }
+
+    @Test
+    fun consegueAlterarCategorias() {
+        val bd = getWritableDataBase()
+
+        val categoria = Categoria("...", 20, "Test")
+        insereCategoria(bd, categoria)
+
+        categoria.nome = "Parkour"
+        val registosAlterados = TabelaCategorias(bd).altera(categoria.toContentValues(), "${BaseColumns._ID}=?", arrayOf(categoria.id.toString()))
+
+        assertEquals(1, registosAlterados)
+    }
+
+    @Test
+    fun consegueAlterarJogos() {
+        val bd = getWritableDataBase()
+
+        val categoriaMiniJogos = Categoria("Mini-Jogos", 20, "Test")
+        insereCategoria(bd, categoriaMiniJogos)
+
+        val categoriaFactory = Categoria("Factory", 13, "Test")
+        insereCategoria(bd, categoriaFactory)
+
+        val data = Calendar.getInstance()
+        data.set(2022, 3, 1)
+        val jogo = Jogo("...", "Desenvolvedor", data, 1.99, categoriaFactory.id)
+        insereJogo(bd, jogo)
+
+        val novaData = Calendar.getInstance()
+        novaData.set(2017, 1, 1)
+        jogo.id_categoria = categoriaMiniJogos.id
+        jogo.nome = "Epic-Mini-Games"
+        jogo.desenvolvedor = "Dev"
+        jogo.data = novaData
+        jogo.preco = 0.99
+
+        val registosAlterados = TabelaJogos(bd).altera(jogo.toContentValues(), "${BaseColumns._ID}=?", arrayOf(jogo.id.toString()))
+
+        assertEquals(1, registosAlterados)
+    }
 }
