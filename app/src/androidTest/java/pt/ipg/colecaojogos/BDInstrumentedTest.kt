@@ -178,4 +178,34 @@ class BDInstrumentedTest {
 
         assertEquals(1, registosAlterados)
     }
+
+    @Test
+    fun consegueApagarCategorias() {
+        val bd = getWritableDataBase()
+
+        val categoria = Categoria("...", 20, "Test")
+        insereCategoria(bd, categoria)
+
+        categoria.nome = "Parkour"
+        val registosEliminados = TabelaCategorias(bd).elimina("${BaseColumns._ID}=?", arrayOf(categoria.id.toString()))
+
+        assertEquals(1, registosEliminados)
+    }
+
+    @Test
+    fun consegueApagarJogos() {
+        val bd = getWritableDataBase()
+
+        val categoria = Categoria("Tycoon", 7, "Test")
+        insereCategoria(bd, categoria)
+
+        val data = Calendar.getInstance()
+        data.set(2022, 3, 1)
+        val jogo = Jogo("...", "Desenvolvedor", data, 1.99, categoria.id)
+        insereJogo(bd, jogo)
+
+        val registosEliminados = TabelaJogos(bd).elimina("${BaseColumns._ID}=?", arrayOf(jogo.id.toString()))
+
+        assertEquals(1, registosEliminados)
+    }
 }
