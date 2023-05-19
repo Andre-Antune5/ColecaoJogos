@@ -48,7 +48,7 @@ class JogosContentProvider : ContentProvider() {
 
         fun uriMatcher() = UriMatcher(UriMatcher.NO_MATCH).apply {
             addURI(AUTORIDADE, CATEGORIAS, URI_CATEGORIAS) // content://pt.ipg.colecaojogos/categorias
-            addURI(AUTORIDADE, JOGOS, URI_JOGOS) //content://pt.ipg.colecaojogos/jogo
+            addURI(AUTORIDADE, JOGOS, URI_JOGOS) //content://pt.ipg.colecaojogos/jogos
         }
     }
 }
