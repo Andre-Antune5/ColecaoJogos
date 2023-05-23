@@ -5,6 +5,7 @@ import android.content.ContentValues
 import android.content.UriMatcher
 import android.database.Cursor
 import android.net.Uri
+import android.provider.BaseColumns
 
 class JogosContentProvider : ContentProvider() {
     private var bdOpenHelper : BDJogosOpenHelper? = null
@@ -21,13 +22,21 @@ class JogosContentProvider : ContentProvider() {
         sortOrder: String?
     ): Cursor? {
         val bd = bdOpenHelper!!.readableDatabase
+        val endereco = uriMatcher().match(uri)
 
-        val tabela = when (uriMatcher().match(uri)) {
-            URI_CATEGORIAS -> TabelaCategorias(bd)
-            URI_JOGOS -> TabelaJogos(bd)
+        val tabela = when (endereco) {
+            URI_CATEGORIAS, URI_CATEGORIA_ID -> TabelaCategorias(bd)
+            URI_JOGOS, URI_JOGOS_ID -> TabelaJogos(bd)
             else -> null
         }
-        return tabela?.consulta(projection as Array<String>, selection, selectionArgs as Array<String>?, null, null, sortOrder)
+
+        val id = uri.lastPathSegment // content://pt.ipg.colecaojogos/categorias/5 , lastPathSegment = 5 neste caso, que corresponde ao ID
+        val (selecao, argsSel) = when (endereco) { //content://pt.ipg.colecaojogos/jogos/5 -> selection = "_id = ?" , selectionArgs = {'5'}
+            URI_CATEGORIA_ID, URI_JOGOS_ID -> Pair("${BaseColumns._ID}=?", arrayOf(id))
+            else -> Pair(selection, selectionArgs)
+        } //selection = "nome LIKE '?%' , selectionArgs = { 'a' } -> para pesquisar por um jogo em que o nome começe por 'a'
+
+        return tabela?.consulta(projection as Array<String>, selecao, argsSel as Array<String>?, null, null, sortOrder)
     }
 
     override fun getType(p0: Uri): String? {
@@ -50,14 +59,18 @@ class JogosContentProvider : ContentProvider() {
     companion object {
         private const val AUTORIDADE = "pt.ipg.colecaojogos"
         private const val URI_CATEGORIAS = 100
+        private const val URI_CATEGORIA_ID = 101
         private const val URI_JOGOS = 200
+        private const val URI_JOGOS_ID = 201
         const val CATEGORIAS = "categorias"
         const val JOGOS = "jogos"
 
 
         fun uriMatcher() = UriMatcher(UriMatcher.NO_MATCH).apply {
-            addURI(AUTORIDADE, CATEGORIAS, URI_CATEGORIAS) // content://pt.ipg.colecaojogos/categorias
-            addURI(AUTORIDADE, JOGOS, URI_JOGOS) //content://pt.ipg.colecaojogos/jogos
+            addURI(AUTORIDADE, CATEGORIAS, URI_CATEGORIAS) // content://pt.ipg.colecaojogos/categorias -> 100
+            addURI(AUTORIDADE, "$CATEGORIAS/#", URI_CATEGORIA_ID) // content://pt.ipg.colecaojogos/categorias/243 -> 101 , # = id de uma categoria em especifico
+            addURI(AUTORIDADE, JOGOS, URI_JOGOS) //content://pt.ipg.colecaojogos/jogos -> 200
+            addURI(AUTORIDADE, "$JOGOS/#", URI_JOGOS_ID) //content://pt.ipg.colecaojogos/jogos/ -> 201 , # = id de um jogo em especifico
         }
     }
 }
