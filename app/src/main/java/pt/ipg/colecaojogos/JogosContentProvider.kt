@@ -7,18 +7,27 @@ import android.database.Cursor
 import android.net.Uri
 
 class JogosContentProvider : ContentProvider() {
+    private var bdOpenHelper : BDJogosOpenHelper? = null
     override fun onCreate(): Boolean {
-        TODO("Not yet implemented")
+        bdOpenHelper = BDJogosOpenHelper(context)
+        return true
     }
 
     override fun query(
-        p0: Uri, //URI = universal Resource Identifier
-        p1: Array<out String>?,
-        p2: String?,
-        p3: Array<out String>?,
-        p4: String?
+        uri: Uri, //URI = universal Resource Identifier
+        projection: Array<out String>?,
+        selection: String?,
+        selectionArgs: Array<out String>?,
+        sortOrder: String?
     ): Cursor? {
-        TODO("Not yet implemented")
+        val bd = bdOpenHelper!!.readableDatabase
+
+        val tabela = when (uriMatcher().match(uri)) {
+            URI_CATEGORIAS -> TabelaCategorias(bd)
+            URI_JOGOS -> TabelaJogos(bd)
+            else -> null
+        }
+        return tabela?.consulta(projection as Array<String>, selection, selectionArgs as Array<String>?, null, null, sortOrder)
     }
 
     override fun getType(p0: Uri): String? {
