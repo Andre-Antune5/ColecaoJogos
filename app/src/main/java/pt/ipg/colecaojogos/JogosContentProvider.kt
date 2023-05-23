@@ -62,7 +62,17 @@ class JogosContentProvider : ContentProvider() {
     }
 
     override fun delete(uri: Uri, selection: String?, selectionArgs: Array<out String>?): Int {
-        TODO("Not yet implemented")
+        val bd = bdOpenHelper!!.writableDatabase
+        val endereco = uriMatcher().match(uri)
+
+        val tabela = when (endereco) {
+            URI_CATEGORIAS_ID -> TabelaCategorias(bd)
+            URI_JOGOS_ID -> TabelaJogos(bd)
+            else -> return 0
+        }
+
+        val id = uri.lastPathSegment!!
+        return tabela.elimina("${BaseColumns._ID}=?", arrayOf(id))
     }
 
     override fun update(uri: Uri, values: ContentValues?, selection: String?, selectionArgs: Array<out String>?): Int {
