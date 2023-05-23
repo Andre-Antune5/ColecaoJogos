@@ -40,7 +40,16 @@ class JogosContentProvider : ContentProvider() {
     }
 
     override fun getType(uri: Uri): String? {
-        TODO("Not yet implemented")
+        val endereco = uriMatcher().match(uri)
+
+        return when(endereco) {
+            URI_CATEGORIAS-> "vnd.android.cursor.dir/$CATEGORIAS"
+            URI_CATEGORIAS_ID-> "vnd.android.cursor.item/$CATEGORIAS"
+            URI_JOGOS-> "vnd.android.cursor.dir/$JOGOS"
+            URI_JOGOS_ID-> "vnd.android.cursor.item/$JOGOS"
+            else -> null
+
+        }
     }
 
     override fun insert(uri: Uri, values: ContentValues?): Uri? {
