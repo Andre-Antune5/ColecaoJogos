@@ -25,21 +25,21 @@ class JogosContentProvider : ContentProvider() {
         val endereco = uriMatcher().match(uri)
 
         val tabela = when (endereco) {
-            URI_CATEGORIAS, URI_CATEGORIA_ID -> TabelaCategorias(bd)
+            URI_CATEGORIAS, URI_CATEGORIAS_ID -> TabelaCategorias(bd)
             URI_JOGOS, URI_JOGOS_ID -> TabelaJogos(bd)
             else -> null
         }
 
         val id = uri.lastPathSegment // content://pt.ipg.colecaojogos/categorias/5 , lastPathSegment = 5 neste caso, que corresponde ao ID
         val (selecao, argsSel) = when (endereco) { //content://pt.ipg.colecaojogos/jogos/5 -> selection = "_id = ?" , selectionArgs = {'5'}
-            URI_CATEGORIA_ID, URI_JOGOS_ID -> Pair("${BaseColumns._ID}=?", arrayOf(id))
+            URI_CATEGORIAS_ID, URI_JOGOS_ID -> Pair("${BaseColumns._ID}=?", arrayOf(id))
             else -> Pair(selection, selectionArgs)
         } //selection = "nome LIKE '?%' , selectionArgs = { 'a' } -> para pesquisar por um jogo em que o nome começe por 'a'
 
         return tabela?.consulta(projection as Array<String>, selecao, argsSel as Array<String>?, null, null, sortOrder)
     }
 
-    override fun getType(p0: Uri): String? {
+    override fun getType(uri: Uri): String? {
         TODO("Not yet implemented")
     }
 
@@ -61,19 +61,29 @@ class JogosContentProvider : ContentProvider() {
         return Uri.withAppendedPath(uri, id.toString())
     }
 
-    override fun delete(p0: Uri, p1: String?, p2: Array<out String>?): Int {
+    override fun delete(uri: Uri, selection: String?, selectionArgs: Array<out String>?): Int {
         TODO("Not yet implemented")
     }
 
-    override fun update(p0: Uri, p1: ContentValues?, p2: String?, p3: Array<out String>?): Int {
-        TODO("Not yet implemented")
+    override fun update(uri: Uri, values: ContentValues?, selection: String?, selectionArgs: Array<out String>?): Int {
+        val bd = bdOpenHelper!!.writableDatabase
+        val endereco = uriMatcher().match(uri)
+
+        val tabela = when (endereco) {
+            URI_CATEGORIAS_ID -> TabelaCategorias(bd)
+            URI_JOGOS_ID -> TabelaJogos(bd)
+            else -> return 0
+        }
+
+        val id = uri.lastPathSegment!!
+        return tabela.altera(values!!, "${BaseColumns._ID}=?", arrayOf(id))
     }
 
 
     companion object {
         private const val AUTORIDADE = "pt.ipg.colecaojogos"
         private const val URI_CATEGORIAS = 100
-        private const val URI_CATEGORIA_ID = 101
+        private const val URI_CATEGORIAS_ID = 101
         private const val URI_JOGOS = 200
         private const val URI_JOGOS_ID = 201
         const val CATEGORIAS = "categorias"
@@ -82,7 +92,7 @@ class JogosContentProvider : ContentProvider() {
 
         fun uriMatcher() = UriMatcher(UriMatcher.NO_MATCH).apply {
             addURI(AUTORIDADE, CATEGORIAS, URI_CATEGORIAS) // content://pt.ipg.colecaojogos/categorias -> 100
-            addURI(AUTORIDADE, "$CATEGORIAS/#", URI_CATEGORIA_ID) // content://pt.ipg.colecaojogos/categorias/243 -> 101 , # = id de uma categoria em especifico
+            addURI(AUTORIDADE, "$CATEGORIAS/#", URI_CATEGORIAS_ID) // content://pt.ipg.colecaojogos/categorias/243 -> 101 , # = id de uma categoria em especifico
             addURI(AUTORIDADE, JOGOS, URI_JOGOS) //content://pt.ipg.colecaojogos/jogos -> 200
             addURI(AUTORIDADE, "$JOGOS/#", URI_JOGOS_ID) //content://pt.ipg.colecaojogos/jogos/ -> 201 , # = id de um jogo em especifico
         }
