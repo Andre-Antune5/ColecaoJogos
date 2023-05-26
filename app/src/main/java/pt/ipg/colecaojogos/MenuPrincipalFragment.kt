@@ -34,6 +34,10 @@ class MenuPrincipalFragment : Fragment() {
         binding.buttonSobre.setOnClickListener {
             findNavController().navigate(R.id.action_MenuPrincipalFragment_to_SobreFragment)
         }
+
+        binding.buttonJogos.setOnClickListener {
+            findNavController().navigate(R.id.action_MenuPrincipalFragment_to_ListaJogosFragment)
+        }
     }
 
     override fun onDestroyView() {

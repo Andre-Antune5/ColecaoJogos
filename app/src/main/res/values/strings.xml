@@ -49,4 +49,7 @@
     <string name="sobre">Sobre</string>
     <string name="base_de_dados_que_consiste_em_duas_tabelas_jogos_e_categorias">Base de dados que consiste em duas tabelas: jogos e categorias.</string>
     <string name="voltar">Voltar</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="jogos_lista_label">Jogos</string>
 </resources>
