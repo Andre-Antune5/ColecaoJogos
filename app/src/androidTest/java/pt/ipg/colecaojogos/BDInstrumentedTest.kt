@@ -43,7 +43,7 @@ class BDInstrumentedTest {
 
     @Before
     fun apagaBaseDados() {
-        getAppContext().deleteDatabase(BDJogosOpenHelper.NOME_BASE_DADOS)
+        //getAppContext().deleteDatabase(BDJogosOpenHelper.NOME_BASE_DADOS)
     }
 
     @Test
