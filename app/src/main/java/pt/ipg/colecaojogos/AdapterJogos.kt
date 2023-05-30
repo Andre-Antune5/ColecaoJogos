@@ -3,6 +3,7 @@ package pt.ipg.colecaojogos
 import android.database.Cursor
 import android.view.View
 import android.view.ViewGroup
+import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import androidx.recyclerview.widget.RecyclerView.ViewHolder
 
@@ -13,8 +14,16 @@ class AdapterJogos(val Fragment: ListaJogosFragment) : RecyclerView.Adapter<Adap
         notifyDataSetChanged()
     }
 
-    inner class ViewHolderJogo(itemView: View) : ViewHolder(itemView) {
+    inner class ViewHolderJogo(contentor: View) : ViewHolder(contentor) {
+        private val textViewTitulo = contentor.findViewById<TextView>(R.id.textViewTitulo)
+        private val textViewCategoria = contentor.findViewById<TextView>(R.id.textViewCategoria)
 
+        internal var jogo: Jogo? = null
+        set(value) {
+            field = value
+            textViewTitulo.text = jogo?.nome ?: ""
+            textViewCategoria.text = jogo?.id_categoria.toString() ?: ""
+        }
     }
 
     /**
@@ -75,6 +84,7 @@ class AdapterJogos(val Fragment: ListaJogosFragment) : RecyclerView.Adapter<Adap
      * @param position The position of the item within the adapter's data set.
      */
     override fun onBindViewHolder(holder: ViewHolderJogo, position: Int) {
-        TODO("Not yet implemented")
+        cursor!!.move(position)
+        holder.jogo = Jogo.fromCursor(cursor!!)
     }
 }
