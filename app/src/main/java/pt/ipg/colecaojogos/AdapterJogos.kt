@@ -12,7 +12,7 @@ class AdapterJogos : RecyclerView.Adapter<AdapterJogos.ViewHolderJogo>() {
         field = value
         notifyDataSetChanged()
     }
-    
+
     inner class ViewHolderJogo(itemView: View) : ViewHolder(itemView) {
 
     }
@@ -50,9 +50,9 @@ class AdapterJogos : RecyclerView.Adapter<AdapterJogos.ViewHolderJogo>() {
      * @return The total number of items in this adapter.
      */
     override fun getItemCount(): Int {
-        TODO("Not yet implemented")
+        return cursor?.count ?: 0
     }
-
+    
     /**
      * Called by RecyclerView to display the data at the specified position. This method should
      * update the contents of the [ViewHolder.itemView] to reflect the item at the given
