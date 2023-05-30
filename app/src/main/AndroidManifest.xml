@@ -25,7 +25,7 @@
         <provider
             android:authorities="pt.ipg.colecaojogos"
             android:name=".JogosContentProvider"
-            android:exported = "false" 
+            android:exported = "false"
             />
     </application>
 

@@ -84,7 +84,7 @@ class AdapterJogos(val Fragment: ListaJogosFragment) : RecyclerView.Adapter<Adap
      * @param position The position of the item within the adapter's data set.
      */
     override fun onBindViewHolder(holder: ViewHolderJogo, position: Int) {
-        cursor!!.move(position)
+        cursor!!.moveToPosition(position)
         holder.jogo = Jogo.fromCursor(cursor!!)
     }
 }
