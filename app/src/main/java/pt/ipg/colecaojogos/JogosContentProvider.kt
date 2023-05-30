@@ -101,12 +101,19 @@ class JogosContentProvider : ContentProvider() {
 
     companion object {
         private const val AUTORIDADE = "pt.ipg.colecaojogos"
+
         private const val URI_CATEGORIAS = 100
         private const val URI_CATEGORIAS_ID = 101
         private const val URI_JOGOS = 200
         private const val URI_JOGOS_ID = 201
         const val CATEGORIAS = "categorias"
         const val JOGOS = "jogos"
+
+        private val ENDERECO_BASE = Uri.parse("content://$AUTORIDADE")
+
+        val ENDERECO_CATEGORIAS = Uri.withAppendedPath(ENDERECO_BASE, CATEGORIAS)
+        val ENDERECO_JOGOS = Uri.withAppendedPath(ENDERECO_BASE, JOGOS)
+
 
 
         fun uriMatcher() = UriMatcher(UriMatcher.NO_MATCH).apply {
