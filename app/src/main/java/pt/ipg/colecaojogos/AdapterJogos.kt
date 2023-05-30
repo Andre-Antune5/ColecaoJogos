@@ -6,7 +6,7 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import androidx.recyclerview.widget.RecyclerView.ViewHolder
 
-class AdapterJogos : RecyclerView.Adapter<AdapterJogos.ViewHolderJogo>() {
+class AdapterJogos(val Fragment: ListaJogosFragment) : RecyclerView.Adapter<AdapterJogos.ViewHolderJogo>() {
     var cursor: Cursor? = null
     set(value) {
         field = value
@@ -41,7 +41,7 @@ class AdapterJogos : RecyclerView.Adapter<AdapterJogos.ViewHolderJogo>() {
      * @see .onBindViewHolder
      */
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolderJogo {
-        TODO("Not yet implemented")
+        return ViewHolderJogo(Fragment.layoutInflater.inflate(R.layout.item_jogo, parent, false))
     }
 
     /**
@@ -52,7 +52,7 @@ class AdapterJogos : RecyclerView.Adapter<AdapterJogos.ViewHolderJogo>() {
     override fun getItemCount(): Int {
         return cursor?.count ?: 0
     }
-    
+
     /**
      * Called by RecyclerView to display the data at the specified position. This method should
      * update the contents of the [ViewHolder.itemView] to reflect the item at the given

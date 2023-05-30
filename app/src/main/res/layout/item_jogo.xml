@@ -18,7 +18,7 @@
         android:textColor="#3F51B5"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        tools:text="Fortinite" />
+        tools:text="Fortnite" />
 
     <TextView
         android:id="@+id/textViewCategoria"
