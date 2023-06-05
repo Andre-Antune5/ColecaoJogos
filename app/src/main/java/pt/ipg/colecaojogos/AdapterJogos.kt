@@ -4,6 +4,7 @@ import android.database.Cursor
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
+import android.widget.Toast
 import androidx.recyclerview.widget.RecyclerView
 import androidx.recyclerview.widget.RecyclerView.ViewHolder
 
@@ -18,13 +19,31 @@ class AdapterJogos(val Fragment: ListaJogosFragment) : RecyclerView.Adapter<Adap
         private val textViewTitulo = contentor.findViewById<TextView>(R.id.textViewTitulo)
         private val textViewCategoria = contentor.findViewById<TextView>(R.id.textViewCategoria)
 
+        init {
+            contentor.setOnClickListener {
+                viewHolderSeleccionado?.desSeleciona()
+                seleciona()
+            }
+        }
+
         internal var jogo: Jogo? = null
         set(value) {
             field = value
             textViewTitulo.text = jogo?.nome ?: ""
             textViewCategoria.text = jogo?.id_categoria.toString() ?: ""
         }
+
+        fun seleciona() {
+            viewHolderSeleccionado = this
+            itemView.setBackgroundResource(R.color.item_selecionado)
+        }
+
+        fun desSeleciona() {
+            itemView.setBackgroundResource(android.R.color.white)
+        }
     }
+
+    private var viewHolderSeleccionado : ViewHolderJogo? = null
 
     /**
      * Called when RecyclerView needs a new [ViewHolder] of the given type to represent
