@@ -1,6 +1,8 @@
 package pt.ipg.colecaojogos
 
+import android.database.Cursor
 import android.database.sqlite.SQLiteDatabase
+import android.database.sqlite.SQLiteQueryBuilder
 import android.provider.BaseColumns
 
 class TabelaJogos(db: SQLiteDatabase) : TabelaBD(db, NOME_TABELA) {
@@ -8,8 +10,24 @@ class TabelaJogos(db: SQLiteDatabase) : TabelaBD(db, NOME_TABELA) {
         db.execSQL("CREATE TABLE $NOME_TABELA ($CHAVE_TABELA, $CAMPO_NOME TEXT NOT NULL, $CAMPO_DESENVOLVEDOR TEXT, $CAMPO_DATA INTEGER, $CAMPO_PRECO REAL, $CAMPO_FK_CATEGORIA INTEGER NOT NULL, FOREIGN KEY ($CAMPO_FK_CATEGORIA) REFERENCES ${TabelaCategorias.NOME_TABELA}(${BaseColumns._ID}) ON DELETE RESTRICT)")
     }
 
+    override fun consulta(
+        colunas: Array<String>,
+        selecao: String?,
+        argsSelecao: Array<String>?,
+        groupby: String?,
+        having: String?,
+        orderby: String?
+    ): Cursor {
+        val sql = SQLiteQueryBuilder()
+        sql.tables = "$NOME_TABELA INNER JOIN ${TabelaCategorias.NOME_TABELA} ON ${TabelaCategorias.CAMPO_ID}=$CAMPO_FK_CATEGORIA"
+
+        return sql.query(db, colunas, selecao, argsSelecao, groupby, having, orderby)
+    }
+
     companion object {
         const val NOME_TABELA = "jogos"
+
+        const val CAMPO_ID = "$NOME_TABELA.${BaseColumns._ID}"
         const val CAMPO_NOME = "nome"
         const val CAMPO_DESENVOLVEDOR = "desenvolvedor"
         const val CAMPO_DATA = "data"

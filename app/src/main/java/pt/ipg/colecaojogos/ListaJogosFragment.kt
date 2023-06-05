@@ -28,7 +28,6 @@ class ListaJogosFragment : Fragment(), LoaderManager.LoaderCallbacks<Cursor> {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-
     }
 
     override fun onCreateView(
@@ -37,8 +36,6 @@ class ListaJogosFragment : Fragment(), LoaderManager.LoaderCallbacks<Cursor> {
     ): View? {
         _binding = FragmentListaJogosBinding.inflate(inflater, container, false)
         return binding.root
-        // Inflate the layout for this fragment
-        //return inflater.inflate(R.layout.fragment_lista_jogos, container, false)
     }
 
     private var adapterJogos: AdapterJogos? = null
@@ -78,20 +75,6 @@ class ListaJogosFragment : Fragment(), LoaderManager.LoaderCallbacks<Cursor> {
             null,
             TabelaJogos.CAMPO_NOME
         )
-    }
-
-    /**
-     * Called when a previously created loader is being reset, and thus
-     * making its data unavailable.  The application should at this point
-     * remove any references it has to the Loader's data.
-     *
-     *
-     * This will always be called from the process's main thread.
-     *
-     * @param loader The Loader that is being reset.
-     */
-    override fun onLoaderReset(loader: Loader<Cursor>) {
-        adapterJogos!!.cursor = null
     }
 
     /**
@@ -141,6 +124,19 @@ class ListaJogosFragment : Fragment(), LoaderManager.LoaderCallbacks<Cursor> {
         adapterJogos!!.cursor = data
     }
 
+    /**
+     * Called when a previously created loader is being reset, and thus
+     * making its data unavailable.  The application should at this point
+     * remove any references it has to the Loader's data.
+     *
+     *
+     * This will always be called from the process's main thread.
+     *
+     * @param loader The Loader that is being reset.
+     */
+    override fun onLoaderReset(loader: Loader<Cursor>) {
+        adapterJogos!!.cursor = null
+    }
     companion object {
 
     }
