@@ -4,11 +4,10 @@ import android.database.Cursor
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
-import android.widget.Toast
 import androidx.recyclerview.widget.RecyclerView
 import androidx.recyclerview.widget.RecyclerView.ViewHolder
 
-class AdapterJogos(val Fragment: ListaJogosFragment) : RecyclerView.Adapter<AdapterJogos.ViewHolderJogo>() {
+class AdapterJogos(val fragment: ListaJogosFragment) : RecyclerView.Adapter<AdapterJogos.ViewHolderJogo>() {
     var cursor: Cursor? = null
     set(value) {
         field = value
@@ -35,6 +34,7 @@ class AdapterJogos(val Fragment: ListaJogosFragment) : RecyclerView.Adapter<Adap
 
         fun seleciona() {
             viewHolderSeleccionado = this
+            fragment.jogoSelecionado = jogo
             itemView.setBackgroundResource(R.color.item_selecionado)
         }
 
@@ -69,7 +69,7 @@ class AdapterJogos(val Fragment: ListaJogosFragment) : RecyclerView.Adapter<Adap
      * @see .onBindViewHolder
      */
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolderJogo {
-        return ViewHolderJogo(Fragment.layoutInflater.inflate(R.layout.item_jogo, parent, false))
+        return ViewHolderJogo(fragment.layoutInflater.inflate(R.layout.item_jogo, parent, false))
     }
 
     /**
