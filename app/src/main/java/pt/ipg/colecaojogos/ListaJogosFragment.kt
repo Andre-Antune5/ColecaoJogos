@@ -4,6 +4,7 @@ import android.database.Cursor
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
+import android.view.MenuItem
 import android.view.View
 import android.view.ViewGroup
 import androidx.loader.app.LoaderManager
@@ -143,6 +144,37 @@ class ListaJogosFragment : Fragment(), LoaderManager.LoaderCallbacks<Cursor> {
     override fun onLoaderReset(loader: Loader<Cursor>) {
         adapterJogos!!.cursor = null
     }
+
+    fun processaClickMenu(item: MenuItem) : Boolean{
+        return when (item.itemId) {
+            R.id.action_adicionar -> {
+                adicionaJogo()
+                true
+            }
+            R.id.action_editar -> {
+                editarJogo()
+                true
+            }
+            R.id.action_eliminar -> {
+                eliminarJogo()
+                true
+            }
+            else -> false
+        }
+    }
+
+    private fun eliminarJogo() {
+        TODO("Not yet implemented")
+    }
+
+    private fun editarJogo() {
+        TODO("Not yet implemented")
+    }
+
+    private fun adicionaJogo() {
+        TODO("Not yet implemented")
+    }
+
     companion object {
 
     }
