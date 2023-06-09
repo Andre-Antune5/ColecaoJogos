@@ -14,7 +14,7 @@ import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import pt.ipg.colecaojogos.databinding.FragmentListaJogosBinding
 
-private const val ID_LOADER_LIVROS = 0
+private const val ID_LOADER_JOGOS = 0
 
 /*
  * A simple [Fragment] subclass.
@@ -59,7 +59,7 @@ class ListaJogosFragment : Fragment(), LoaderManager.LoaderCallbacks<Cursor> {
         binding.recyclerViewJogos.layoutManager = LinearLayoutManager(requireContext())
 
         val loader = LoaderManager.getInstance(this)
-        loader.initLoader(ID_LOADER_LIVROS, null, this)
+        loader.initLoader(ID_LOADER_JOGOS, null, this)
 
         val activity = activity as MainActivity
         activity.fragment = this
