@@ -63,6 +63,7 @@ class MainActivity : AppCompatActivity() {
 
         val opcaoPorcessada = when (fragment) {
             is ListaJogosFragment -> (fragment as ListaJogosFragment).processaClickMenu(item)
+            is NovoJogoFragment -> (fragment as NovoJogoFragment).processaOpcaoMenu(item)
             else -> false
         }
 
