@@ -60,4 +60,6 @@
     <string name="categoria">Categoria</string>
     <string name="data_publica_o">Data Publicação</string>
     <string name="hint">hint</string>
+    <string name="guardar">Guardar</string>
+    <string name="cancelar">Cancelar</string>
 </resources>
