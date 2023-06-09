@@ -10,6 +10,7 @@ import android.view.ViewGroup
 import androidx.loader.app.LoaderManager
 import androidx.loader.content.CursorLoader
 import androidx.loader.content.Loader
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import pt.ipg.colecaojogos.databinding.FragmentListaJogosBinding
 
@@ -179,7 +180,7 @@ class ListaJogosFragment : Fragment(), LoaderManager.LoaderCallbacks<Cursor> {
     }
 
     private fun adicionaJogo() {
-        TODO("Not yet implemented")
+        findNavController().navigate(R.id.action_ListaJogosFragment_to_novoJogoFragment)
     }
 
     companion object {
