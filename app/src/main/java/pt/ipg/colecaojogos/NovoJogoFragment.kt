@@ -8,12 +8,15 @@ import android.view.MenuItem
 import android.view.View
 import android.view.ViewGroup
 import android.widget.SimpleCursorAdapter
+import android.widget.Toast
 import androidx.loader.app.LoaderManager
 import androidx.loader.content.CursorLoader
 import androidx.loader.content.Loader
 import androidx.navigation.fragment.findNavController
 import pt.ipg.colecaojogos.databinding.FragmentNovoJogoBinding
-import pt.ipg.colecaojogos.databinding.FragmentSobreBinding
+import java.text.SimpleDateFormat
+import java.util.Calendar
+import java.util.Date
 
 
 private const val ID_LOADER_CATEGORIAS = 0
@@ -70,7 +73,39 @@ class NovoJogoFragment : Fragment(), LoaderManager.LoaderCallbacks<Cursor> {
     }
 
     private fun guardar() {
-        TODO("Not yet implemented")
+        val nome = binding.editTextTitulo.text.toString()
+        if(nome.isBlank()) {
+            binding.editTextTitulo.error = getString(R.string.NomeObrigatorio)
+            binding.editTextTitulo.requestFocus()
+            return
+        }
+
+        val categoriaID = binding.spinnerCategorias.selectedItemId
+
+        val data: Date
+        val df = SimpleDateFormat("dd-MM-yyyy")
+        try {
+            data = df.parse(binding.editTextDataPub.text.toString())
+        } catch (e: Exception) {
+            binding.editTextDataPub.error = "Data inválida!"
+            binding.editTextDataPub.requestFocus()
+            return
+        }
+
+        val calendario = Calendar.getInstance()
+        calendario.time = data
+        val jogo = Jogo(nome, "?", calendario, 0.0, categoriaID)
+        requireActivity().contentResolver.insert(
+            JogosContentProvider.ENDERECO_JOGOS,
+            jogo.toContentValues()
+        )
+
+        if(id == null) {
+            binding.editTextTitulo.error = getString(R.string.n_o_foi_possivel_guardar_o_jogo)
+            return
+        }
+
+        //Toast.makeText(requireContext())
     }
 
     /**

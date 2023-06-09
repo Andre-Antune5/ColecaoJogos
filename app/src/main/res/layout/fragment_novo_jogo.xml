@@ -17,7 +17,8 @@
             android:layout_height="wrap_content"
             android:hint="@string/nome"
             android:inputType="text"
-            android:textColorHint="#546E7A" />
+            android:textColorHint="#546E7A"
+            tools:ignore="TextContrastCheck" />
 
         <TextView
             android:id="@+id/textView"
@@ -41,8 +42,10 @@
                 android:id="@+id/editTextDataPub"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:hint="@string/data_publica_o"
-                android:textColorHint="#546E7A" />
+                android:hint="@string/data_publicacao"
+                android:inputType="datetime|date"
+                android:textColorHint="#546E7A"
+                tools:ignore="TextContrastCheck" />
 
         </com.google.android.material.textfield.TextInputLayout>
 
