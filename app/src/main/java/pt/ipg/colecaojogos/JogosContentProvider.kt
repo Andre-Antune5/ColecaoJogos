@@ -131,7 +131,12 @@ class JogosContentProvider : ContentProvider() {
             else -> Pair(selection, selectionArgs)
         } //selection = "nome LIKE '?%' , selectionArgs = { 'a' } -> para pesquisar por um jogo em que o nome começe por 'a'
 
-        return tabela?.consulta(projection as Array<String>, selecao, argsSel as Array<String>?, null, null, sortOrder)
+        return tabela?.consulta(
+            projection as Array<String>,
+            selecao,
+            argsSel as Array<String>?,
+            null, null,
+            sortOrder)
     }
 
     /**
@@ -248,7 +253,12 @@ class JogosContentProvider : ContentProvider() {
      * @param selection An optional filter to match rows to update.
     -
      */
-    override fun update(uri: Uri, values: ContentValues?, selection: String?, selectionArgs: Array<out String>?): Int {
+    override fun update(
+        uri: Uri,
+        values: ContentValues?,
+        selection: String?,
+        selectionArgs: Array<out String>?
+    ): Int {
         val bd = bdOpenHelper!!.writableDatabase
         val endereco = uriMatcher().match(uri)
 
@@ -277,8 +287,6 @@ class JogosContentProvider : ContentProvider() {
 
         val ENDERECO_CATEGORIAS = Uri.withAppendedPath(ENDERECO_BASE, CATEGORIAS)
         val ENDERECO_JOGOS = Uri.withAppendedPath(ENDERECO_BASE, JOGOS)
-
-
 
         fun uriMatcher() = UriMatcher(UriMatcher.NO_MATCH).apply {
             addURI(AUTORIDADE, CATEGORIAS, URI_CATEGORIAS) // content://pt.ipg.colecaojogos/categorias -> 100

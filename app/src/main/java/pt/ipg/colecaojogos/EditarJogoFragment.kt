@@ -51,16 +51,16 @@ class EditarJogoFragment : Fragment(), LoaderManager.LoaderCallbacks<Cursor> {
         activity.fragment = this
         activity.idMenuAtual = R.menu.menu_guardar_cancelar
 
-        /*
+
         val jogo = EditarJogoFragmentArgs.fromBundle(requireArguments()).jogo
 
         if (jogo != null) {
             activity.atualizaTitulo(R.string.editar_jogo_label)
 
-            binding.editTextTitulo.setText(jogo.titulo)
+            binding.editTextTitulo.setText(jogo.nome)
             binding.editTextDesenvolvedor.setText(jogo.desenvolvedor)
-            if (jogo.dataPublicacao != null) {
-                dataPub = jogo.dataPublicacao
+            if (jogo.data != null) {
+                dataPub = jogo.data
                 binding.calendarViewDataPub.date = dataPub!!.timeInMillis
             }
         } else {
@@ -68,8 +68,6 @@ class EditarJogoFragment : Fragment(), LoaderManager.LoaderCallbacks<Cursor> {
         }
 
         this.jogo = jogo
-
-         */
     }
 
     override fun onDestroyView() {
