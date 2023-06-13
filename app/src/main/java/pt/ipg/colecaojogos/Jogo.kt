@@ -3,7 +3,8 @@ package pt.ipg.colecaojogos
 import android.content.ContentValues
 import android.database.Cursor
 import android.provider.BaseColumns
-import java.util.*
+import java.io.Serializable
+import java.util.Calendar
 
 data class Jogo (
     var nome: String,
@@ -11,7 +12,7 @@ data class Jogo (
     var desenvolvedor: String,
     var data: Calendar? = null,
     var preco: Double,
-    var id: Long = -1) {
+    var id: Long = -1) : Serializable {
     fun toContentValues(): ContentValues {
         val valores = ContentValues()
 

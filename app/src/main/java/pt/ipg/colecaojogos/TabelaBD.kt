@@ -18,11 +18,9 @@ abstract class TabelaBD (val db: SQLiteDatabase, val nome: String) {
                       orderby: String?
     ) : Cursor = db.query(nome, colunas, selecao, argsSelecao, groupby, having, orderby)
 
-    fun altera(valores: ContentValues, where: String, argsWhere: Array<String>)
-            = db.update(nome, valores, where, argsWhere)
+    fun altera(valores: ContentValues, where: String, argsWhere: Array<String>) = db.update(nome, valores, where, argsWhere)
 
-    fun elimina(where: String, argsWhere: Array<String>)
-            = db.delete(nome, where, argsWhere)
+    fun elimina(where: String, argsWhere: Array<String>) = db.delete(nome, where, argsWhere)
 
     companion object {
         const val CHAVE_TABELA = "${ BaseColumns._ID} INTEGER PRIMARY KEY AUTOINCREMENT"

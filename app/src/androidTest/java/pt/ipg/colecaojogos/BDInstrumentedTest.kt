@@ -102,7 +102,7 @@ class BDInstrumentedTest {
 
         assertEquals(categFPS, categBD)
 
-        val cursorTodasCategorias = tabelaCategorias.consulta(TabelaCategorias.CAMPOS, null, null, null, null, TabelaCategorias.CAMPO_NOME)
+        val cursorTodasCategorias = tabelaCategorias.consulta(TabelaCategorias.CAMPOS, null, null, null, null, TabelaCategorias.CAMPO_Nome)
 
         assert(cursorTodasCategorias.count > 1)
     }

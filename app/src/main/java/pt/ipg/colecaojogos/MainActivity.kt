@@ -13,7 +13,6 @@ import androidx.fragment.app.Fragment
 import pt.ipg.colecaojogos.databinding.ActivityMainBinding
 
 class MainActivity : AppCompatActivity() {
-
     private lateinit var menu: Menu
     private lateinit var appBarConfiguration: AppBarConfiguration
     private lateinit var binding: ActivityMainBinding
@@ -40,7 +39,6 @@ class MainActivity : AppCompatActivity() {
         val navController = findNavController(R.id.nav_host_fragment_content_main)
         appBarConfiguration = AppBarConfiguration(navController.graph)
         setupActionBarWithNavController(navController, appBarConfiguration)
-
     }
 
     override fun onCreateOptionsMenu(menu: Menu): Boolean {
@@ -63,6 +61,7 @@ class MainActivity : AppCompatActivity() {
         val opcaoPorcessada = when (fragment) {
             is ListaJogosFragment -> (fragment as ListaJogosFragment).processaClickMenu(item)
             is EditarJogoFragment -> (fragment as EditarJogoFragment).processaOpcaoMenu(item)
+            is EliminarJogoFragment -> (fragment as EliminarJogoFragment).processaOpcaoMenu(item)
             else -> false
         }
 
