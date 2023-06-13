@@ -178,7 +178,7 @@ class EditarJogoFragment : Fragment(), LoaderManager.LoaderCallbacks<Cursor> {
             TabelaCategorias.CAMPOS,
             null,
             null,
-            TabelaCategorias.CAMPO_NOME
+            TabelaCategorias.CAMPO_DESCRICAO
         )
     }
 
@@ -251,7 +251,7 @@ class EditarJogoFragment : Fragment(), LoaderManager.LoaderCallbacks<Cursor> {
             requireContext(),
             android.R.layout.simple_list_item_1,
             data,
-            arrayOf(TabelaCategorias.CAMPO_NOME),
+            arrayOf(TabelaCategorias.CAMPO_DESCRICAO),
             intArrayOf(android.R.id.text1),
         0
         )

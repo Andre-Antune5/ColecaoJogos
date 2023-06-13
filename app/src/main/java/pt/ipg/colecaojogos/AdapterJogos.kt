@@ -29,7 +29,7 @@ class AdapterJogos(val fragment: ListaJogosFragment) : RecyclerView.Adapter<Adap
             set(value) {
                 field = value
                 textViewTitulo.text = jogo?.nome ?: ""
-                textViewCategoria.text = jogo?.categoria?.nome ?: ""
+                textViewCategoria.text = jogo?.categoria?.descricao ?: ""
             }
 
         fun seleciona() {

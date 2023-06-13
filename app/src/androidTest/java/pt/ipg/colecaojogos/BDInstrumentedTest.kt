@@ -102,7 +102,7 @@ class BDInstrumentedTest {
 
         assertEquals(categFPS, categBD)
 
-        val cursorTodasCategorias = tabelaCategorias.consulta(TabelaCategorias.CAMPOS, null, null, null, null, TabelaCategorias.CAMPO_NOME)
+        val cursorTodasCategorias = tabelaCategorias.consulta(TabelaCategorias.CAMPOS, null, null, null, null, TabelaCategorias.CAMPO_DESCRICAO)
 
         assert(cursorTodasCategorias.count > 1)
     }
@@ -152,7 +152,7 @@ class BDInstrumentedTest {
         val categoria = Categoria("...", 20, "Test")
         insereCategoria(bd, categoria)
 
-        categoria.nome = "Parkour"
+        categoria.descricao = "Parkour"
         val registosAlterados = TabelaCategorias(bd).altera(categoria.toContentValues(), "${BaseColumns._ID}=?", arrayOf(categoria.id.toString()))
 
         assertEquals(1, registosAlterados)
@@ -192,7 +192,7 @@ class BDInstrumentedTest {
         val categoria = Categoria("...", 20, "Test")
         insereCategoria(bd, categoria)
 
-        categoria.nome = "Parkour"
+        categoria.descricao = "Parkour"
         val registosEliminados = TabelaCategorias(bd).elimina("${BaseColumns._ID}=?", arrayOf(categoria.id.toString()))
 
         assertEquals(1, registosEliminados)
