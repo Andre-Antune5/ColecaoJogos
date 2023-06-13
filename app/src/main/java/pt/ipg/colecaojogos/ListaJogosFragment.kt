@@ -49,6 +49,11 @@ class ListaJogosFragment : Fragment(), LoaderManager.LoaderCallbacks<Cursor> {
         return binding.root
     }
 
+    override fun onDestroyView() {
+        super.onDestroyView()
+        _binding = null
+    }
+
     private var adapterJogos: AdapterJogos? = null
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -64,11 +69,6 @@ class ListaJogosFragment : Fragment(), LoaderManager.LoaderCallbacks<Cursor> {
         val activity = activity as MainActivity
         activity.fragment = this
         activity.idMenuAtual = R.menu.menu_lista_jogos
-    }
-
-    override fun onDestroyView() {
-        super.onDestroyView()
-        _binding = null
     }
 
     /**
@@ -150,7 +150,9 @@ class ListaJogosFragment : Fragment(), LoaderManager.LoaderCallbacks<Cursor> {
      * @param loader The Loader that is being reset.
      */
     override fun onLoaderReset(loader: Loader<Cursor>) {
-        adapterJogos!!.cursor = null
+        if (adapterJogos != null) {
+            adapterJogos!!.cursor = null
+        }
     }
 
     fun processaClickMenu(item: MenuItem) : Boolean{
@@ -172,18 +174,17 @@ class ListaJogosFragment : Fragment(), LoaderManager.LoaderCallbacks<Cursor> {
     }
 
     private fun eliminarJogo() {
-        TODO("Not yet implemented")
+        val acao = ListaJogosFragmentDirections.action_ListaJogosFragment_to_EliminarJogoFragment(jogoSelecionado!!)
+        findNavController().navigate(acao)
     }
 
     private fun editarJogo() {
-        TODO("Not yet implemented")
+        val acao = ListaJogosFragmentDirections.actionListaJogosFragmentToEditarJogoFragment(jogoSelecionado!!)
+        findNavController().navigate(acao)
     }
 
     private fun adicionaJogo() {
-        findNavController().navigate(R.id.action_ListaJogosFragment_to_novoJogoFragment)
-    }
-
-    companion object {
-
+        val acao = ListaJogosFragmentDirections.actionListaJogosFragmentToEditarJogoFragment(null)
+        findNavController().navigate(acao)
     }
 }

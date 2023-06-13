@@ -15,9 +15,7 @@ import androidx.loader.content.CursorLoader
 import androidx.loader.content.Loader
 import androidx.navigation.fragment.findNavController
 import pt.ipg.colecaojogos.databinding.FragmentEditarJogoBinding
-import java.text.SimpleDateFormat
 import java.util.Calendar
-import java.util.Date
 
 private const val ID_LOADER_CATEGORIAS = 0
 
@@ -53,6 +51,7 @@ class EditarJogoFragment : Fragment(), LoaderManager.LoaderCallbacks<Cursor> {
         activity.fragment = this
         activity.idMenuAtual = R.menu.menu_guardar_cancelar
 
+        /*
         val jogo = EditarJogoFragmentArgs.fromBundle(requireArguments()).jogo
 
         if (jogo != null) {
@@ -69,6 +68,8 @@ class EditarJogoFragment : Fragment(), LoaderManager.LoaderCallbacks<Cursor> {
         }
 
         this.jogo = jogo
+
+         */
     }
 
     override fun onDestroyView() {
@@ -91,7 +92,7 @@ class EditarJogoFragment : Fragment(), LoaderManager.LoaderCallbacks<Cursor> {
     }
 
     private fun voltaListaJogos() {
-        findNavController().navigate(R.id.action_editarJogoFragment_to_ListaJogosFragment)
+        findNavController().navigate(R.id.action_EditarJogoFragment_to_ListaJogosFragment)
     }
 
     private fun guardar() {

@@ -37,21 +37,28 @@
             android:id="@+id/action_ListaJogosFragment_to_MenuPrincipalFragment"
             app:destination="@id/MenuPrincipalFragment" />
         <action
-            android:id="@+id/action_ListaJogosFragment_to_novoJogoFragment"
-            app:destination="@id/novoJogoFragment" />
+            android:id="@+id/action_ListaJogosFragment_to_EditarJogoFragment"
+            app:destination="@id/EditarJogoFragment" />
+        <action
+            android:id="@+id/action_ListaJogosFragment_to_EliminarJogoFragment"
+            app:destination="@id/EliminarJogoFragment" />
     </fragment>
     <fragment
-        android:id="@+id/novoJogoFragment"
+        android:id="@+id/EditarJogoFragment"
         android:name="pt.ipg.colecaojogos.EditarJogoFragment"
         android:label="@string/novo_jogo_label"
         tools:layout="@layout/fragment_editar_jogo">
         <action
-            android:id="@+id/action_editarJogoFragment_to_ListaJogosFragment"
+            android:id="@+id/action_EditarJogoFragment_to_ListaJogosFragment"
             app:destination="@id/ListaJogosFragment" />
     </fragment>
     <fragment
         android:id="@+id/EliminarJogoFragment"
         android:name="pt.ipg.colecaojogos.EliminarJogoFragment"
         android:label="@string/eliminar_jogo"
-        tools:layout="@layout/fragment_eliminar_jogo" />
+        tools:layout="@layout/fragment_eliminar_jogo" >
+        <action
+            android:id="@+id/action_EliminarJogoFragment_to_ListaJogosFragment"
+            app:destination="@id/ListaJogosFragment" />
+    </fragment>
 </navigation>
