@@ -194,7 +194,9 @@ class EditarJogoFragment : Fragment(), LoaderManager.LoaderCallbacks<Cursor> {
      * @param loader The Loader that is being reset.
      */
     override fun onLoaderReset(loader: Loader<Cursor>) {
-        binding.spinnerCategorias.adapter = null
+        if (_binding != null) {
+            binding.spinnerCategorias.adapter = null
+        }
     }
 
     /**
@@ -254,5 +256,21 @@ class EditarJogoFragment : Fragment(), LoaderManager.LoaderCallbacks<Cursor> {
             intArrayOf(android.R.id.text1),
         0
         )
+
+        mostraCategoriaSelecionadaSpinner()
+    }
+
+    private fun mostraCategoriaSelecionadaSpinner() {
+        if (jogo == null) return
+
+        val idCategoria = jogo!!.categoria.id
+
+        val ultimaCategoria = binding.spinnerCategorias.count - 1
+        for (i in 0..ultimaCategoria) {
+            if (idCategoria == binding.spinnerCategorias.getItemIdAtPosition(i)) {
+                binding.spinnerCategorias.setSelection(i)
+                return
+            }
+        }
     }
 }
