@@ -5,7 +5,13 @@ import android.database.Cursor
 import android.provider.BaseColumns
 import java.util.*
 
-data class Jogo (var nome: String, var desenvolvedor: String, var data: Calendar? = null, var preco: Double, var id_categoria: Long, var id: Long = -1) {
+data class Jogo (
+    var nome: String,
+    var categoria: Categoria,
+    var desenvolvedor: String,
+    var data: Calendar? = null,
+    var preco: Double,
+    var id: Long = -1) {
     fun toContentValues(): ContentValues {
         val valores = ContentValues()
 
@@ -13,7 +19,7 @@ data class Jogo (var nome: String, var desenvolvedor: String, var data: Calendar
         valores.put(TabelaJogos.CAMPO_DESENVOLVEDOR, desenvolvedor)
         valores.put(TabelaJogos.CAMPO_DATA, data?.timeInMillis)
         valores.put(TabelaJogos.CAMPO_PRECO, preco)
-        valores.put(TabelaJogos.CAMPO_FK_CATEGORIA, id_categoria)
+        valores.put(TabelaJogos.CAMPO_FK_CATEGORIA, categoria.id)
 
         return valores
     }
@@ -26,6 +32,9 @@ data class Jogo (var nome: String, var desenvolvedor: String, var data: Calendar
             val posData = cursor.getColumnIndex(TabelaJogos.CAMPO_DATA)
             val posPreco = cursor.getColumnIndex(TabelaJogos.CAMPO_PRECO)
             val posCategoriaFK = cursor.getColumnIndex(TabelaJogos.CAMPO_FK_CATEGORIA)
+            val posNomeCateg = cursor.getColumnIndex(TabelaJogos.CAMPO_NOME_CATEGORIA)
+            val posIdadeCateg = cursor.getColumnIndex(TabelaJogos.CAMPO_IDADE_MIN_CATEGORIA)
+            val posVendidoCateg = cursor.getColumnIndex(TabelaJogos.CAMPO_MAIS_VENDIDO_CATEGORIA)
 
             val id = cursor.getLong(posID)
             val nome = cursor.getString(posNome)
@@ -39,8 +48,11 @@ data class Jogo (var nome: String, var desenvolvedor: String, var data: Calendar
             }
             val preco = cursor.getDouble(posPreco)
             val categoriaID = cursor.getLong(posCategoriaFK)
+            val nomeCategoria = cursor.getString(posNomeCateg)
+            val idadeCateg = cursor.getInt(posIdadeCateg)
+            val vendidoCateg = cursor.getString(posVendidoCateg)
 
-            return Jogo(nome, desenvolvedor, data, preco, categoriaID, id)
+            return Jogo(nome, Categoria(nomeCategoria, idadeCateg, vendidoCateg, categoriaID), desenvolvedor, data, preco, id)
         }
     }
 }

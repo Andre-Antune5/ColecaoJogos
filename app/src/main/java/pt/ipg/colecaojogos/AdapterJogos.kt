@@ -4,6 +4,7 @@ import android.database.Cursor
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
+import android.widget.Toast
 import androidx.recyclerview.widget.RecyclerView
 import androidx.recyclerview.widget.RecyclerView.ViewHolder
 
@@ -29,7 +30,7 @@ class AdapterJogos(val fragment: ListaJogosFragment) : RecyclerView.Adapter<Adap
         set(value) {
             field = value
             textViewTitulo.text = jogo?.nome ?: ""
-            textViewCategoria.text = jogo?.id_categoria.toString() ?: ""
+            textViewCategoria.text = jogo?.categoria?.nome ?: ""
         }
 
         fun seleciona() {
@@ -69,7 +70,9 @@ class AdapterJogos(val fragment: ListaJogosFragment) : RecyclerView.Adapter<Adap
      * @see .onBindViewHolder
      */
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolderJogo {
-        return ViewHolderJogo(fragment.layoutInflater.inflate(R.layout.item_jogo, parent, false))
+        return ViewHolderJogo(
+            fragment.layoutInflater.inflate(R.layout.item_jogo, parent, false)
+        )
     }
 
     /**

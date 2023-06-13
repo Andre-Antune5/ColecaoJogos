@@ -13,7 +13,8 @@ abstract class TabelaBD (val db: SQLiteDatabase, val nome: String) {
     open fun consulta(colunas: Array<String>,
                       selecao: String?,
                       argsSelecao: Array<String>?,
-                      groupby: String?, having: String?,
+                      groupby: String?,
+                      having: String?,
                       orderby: String?
     ) : Cursor = db.query(nome, colunas, selecao, argsSelecao, groupby, having, orderby)
 

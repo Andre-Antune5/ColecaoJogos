@@ -5,7 +5,12 @@ import android.database.Cursor
 import android.provider.BaseColumns
 import androidx.core.content.contentValuesOf
 
-data class Categoria(var nome: String, var idadeMin: Int, var maisVendido: String, var id: Long = -1) {
+data class Categoria(
+    var nome: String,
+    var idadeMin: Int,
+    var maisVendido: String,
+    var id: Long = -1
+) {
     fun toContentValues() : ContentValues {
         val valores = ContentValues()
 

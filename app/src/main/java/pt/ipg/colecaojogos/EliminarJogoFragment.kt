@@ -17,10 +17,7 @@ import java.text.SimpleDateFormat
 import java.util.Calendar
 import java.util.Date
 
-
-private const val ID_LOADER_CATEGORIAS = 0
-
-class NovoJogoFragment : Fragment(), LoaderManager.LoaderCallbacks<Cursor> {
+class EliminarJogoFragment : Fragment() {
     private var _binding: FragmentNovoJogoBinding? = null
 
     // This property is only valid between onCreateView and
@@ -197,7 +194,7 @@ class NovoJogoFragment : Fragment(), LoaderManager.LoaderCallbacks<Cursor> {
             data,
             arrayOf(TabelaCategorias.CAMPO_NOME),
             intArrayOf(android.R.id.text1),
-        0
+            0
         )
     }
 }

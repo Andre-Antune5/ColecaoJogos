@@ -74,12 +74,12 @@ class BDInstrumentedTest {
 
         val data1 = Calendar.getInstance()
         data1.set(2022, 1, 1)
-        val jogo1 = Jogo("Alien", "Desenvolvedor", data1, 10.50, categoria.id)
+        val jogo1 = Jogo("Alien", categoria, "Desenvolvedor", data1, 10.50, categoria.id)
         insereJogo(bd, jogo1)
 
         val data2 = Calendar.getInstance()
         data2.set(2022, 2, 1)
-        val jogo2 = Jogo("FNAT", "Desenvolvedor", data2, 19.99, categoria.id)
+        val jogo2 = Jogo("FNAT", categoria, "Desenvolvedor", data2, 19.99, categoria.id)
         insereJogo(bd, jogo2)
     }
 
@@ -116,16 +116,20 @@ class BDInstrumentedTest {
 
         val data1 = Calendar.getInstance()
         data1.set(2022, 3, 1)
-        val jogo1 = Jogo("Fortnite", "Desenvolvedor", data1, 4.99, categoria.id)
+        val jogo1 = Jogo("Fortnite", categoria, "Desenvolvedor", data1, 4.99)
         insereJogo(bd, jogo1)
 
         val data2 = Calendar.getInstance()
         data2.set(2022, 4, 1)
-        val jogo2 = Jogo("Valorant", "Desenvolvedor", data2, 4.99, categoria.id)
+        val jogo2 = Jogo("Valorant", categoria, "Desenvolvedor", data2, 4.99)
         insereJogo(bd, jogo2)
 
         val tabelaJogos = TabelaJogos(bd)
-        val cursor = tabelaJogos.consulta(TabelaJogos.CAMPOS, "${BaseColumns._ID}=?", arrayOf(jogo1.id.toString()), null, null, null)
+        val cursor = tabelaJogos.consulta(
+            TabelaJogos.CAMPOS,
+            "${TabelaJogos.CAMPO_ID}=?",
+            arrayOf(jogo1.id.toString()),
+            null, null, null)
 
         assert(cursor.moveToNext()) //move cursor para o primeiro registo
 
@@ -133,7 +137,10 @@ class BDInstrumentedTest {
 
         assertEquals(jogo1, jogoBD)
 
-        val cursorTodosJogos = tabelaJogos.consulta(TabelaJogos.CAMPOS, null, null, null, null, TabelaJogos.CAMPO_NOME)
+        val cursorTodosJogos = tabelaJogos.consulta(
+            TabelaJogos.CAMPOS,
+            null, null, null, null,
+            TabelaJogos.CAMPO_NOME)
 
         assert(cursorTodosJogos.count > 1)
     }
@@ -163,12 +170,11 @@ class BDInstrumentedTest {
 
         val data = Calendar.getInstance()
         data.set(2022, 3, 1)
-        val jogo = Jogo("...", "Desenvolvedor", data, 1.99, categoriaFactory.id)
+        val jogo = Jogo("...", categoriaFactory, "Desenvolvedor", data, 1.99, categoriaFactory.id)
         insereJogo(bd, jogo)
 
         val novaData = Calendar.getInstance()
         novaData.set(2017, 1, 1)
-        jogo.id_categoria = categoriaMiniJogos.id
         jogo.nome = "Epic-Mini-Games"
         jogo.desenvolvedor = "Dev"
         jogo.data = novaData
@@ -201,7 +207,7 @@ class BDInstrumentedTest {
 
         val data = Calendar.getInstance()
         data.set(2022, 3, 1)
-        val jogo = Jogo("...", "Desenvolvedor", data, 1.99, categoria.id)
+        val jogo = Jogo("...", categoria, "Desenvolvedor", data, 1.99, categoria.id)
         insereJogo(bd, jogo)
 
         val registosEliminados = TabelaJogos(bd).elimina("${BaseColumns._ID}=?", arrayOf(jogo.id.toString()))
