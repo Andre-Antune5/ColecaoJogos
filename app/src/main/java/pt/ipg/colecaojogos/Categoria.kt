@@ -13,7 +13,7 @@ data class Categoria(
     fun toContentValues() : ContentValues {
         val valores = ContentValues()
 
-        valores.put(TabelaCategorias.CAMPO_NOME, nome)
+        valores.put(TabelaCategorias.CAMPO_Nome, nome)
         valores.put(TabelaCategorias.CAMPO_IDADE_MIN, idadeMin)
         valores.put(TabelaCategorias.CAMPO_MAIS_VENDIDO, maisVendido)
 
@@ -23,7 +23,7 @@ data class Categoria(
     companion object {
         fun fromCursor(cursor: Cursor): Categoria {
             val posID = cursor.getColumnIndex(BaseColumns._ID)
-            val posNome = cursor.getColumnIndex(TabelaCategorias.CAMPO_NOME)
+            val posNome = cursor.getColumnIndex(TabelaCategorias.CAMPO_Nome)
             val posIdade = cursor.getColumnIndex(TabelaCategorias.CAMPO_IDADE_MIN)
             val posVendido = cursor.getColumnIndex(TabelaCategorias.CAMPO_MAIS_VENDIDO)
 

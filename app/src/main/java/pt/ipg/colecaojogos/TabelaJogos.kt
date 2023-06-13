@@ -33,7 +33,7 @@ class TabelaJogos(db: SQLiteDatabase) : TabelaBD(db, NOME_TABELA) {
         const val CAMPO_DATA = "data"
         const val CAMPO_PRECO = "preco"
         const val CAMPO_FK_CATEGORIA = "id_categoria"
-        const val CAMPO_NOME_CATEGORIA = TabelaCategorias.CAMPO_NOME
+        const val CAMPO_NOME_CATEGORIA = TabelaCategorias.CAMPO_Nome
         const val CAMPO_IDADE_MIN_CATEGORIA = TabelaCategorias.CAMPO_IDADE_MIN
         const val CAMPO_MAIS_VENDIDO_CATEGORIA = TabelaCategorias.CAMPO_MAIS_VENDIDO
 
