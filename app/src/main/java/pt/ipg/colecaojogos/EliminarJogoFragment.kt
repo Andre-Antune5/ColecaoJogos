@@ -65,7 +65,7 @@ class EliminarJogoFragment : Fragment() {
     }
 
     private fun cancelar() {
-        findNavController().navigate(R.id.action_novoJogoFragment_to_ListaJogosFragment)
+        findNavController().navigate(R.id.action_editarJogoFragment_to_ListaJogosFragment)
     }
 
     private fun guardar() {

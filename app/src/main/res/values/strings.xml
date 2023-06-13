@@ -69,4 +69,9 @@
     <string name="eliminar_jogo" />
     <string name="preco">Preço</string>
     <string name="editar_jogo_label">Editar jogo</string>
+    <string name="jogo_guardado_com_sucesso">Jogo guardado com sucesso</string>
+    <string name="erro_guardar_jogo">Não foi possível guardar o jogo</string>
+    <string name="eliminar_jogo_label">Eliminar jogo</string>
+    <string name="jogo_eliminado_com_sucesso">Jogo eliminado com sucesso</string>
+    <string name="erro_eliminar_jogo">Erro ao eliminar jogo</string>
 </resources>

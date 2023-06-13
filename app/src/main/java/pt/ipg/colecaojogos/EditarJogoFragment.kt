@@ -1,6 +1,7 @@
 package pt.ipg.colecaojogos
 
 import android.database.Cursor
+import android.net.Uri
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
@@ -8,6 +9,7 @@ import android.view.MenuItem
 import android.view.View
 import android.view.ViewGroup
 import android.widget.SimpleCursorAdapter
+import android.widget.Toast
 import androidx.loader.app.LoaderManager
 import androidx.loader.content.CursorLoader
 import androidx.loader.content.Loader
@@ -20,7 +22,7 @@ import java.util.Date
 private const val ID_LOADER_CATEGORIAS = 0
 
 class EditarJogoFragment : Fragment(), LoaderManager.LoaderCallbacks<Cursor> {
-    private var livro: Jogo?= null
+    private var jogo: Jogo?= null
     private var _binding: FragmentEditarJogoBinding? = null
     private var dataPub : Calendar? = null
 
@@ -53,7 +55,7 @@ class EditarJogoFragment : Fragment(), LoaderManager.LoaderCallbacks<Cursor> {
 
         val jogo = EditarJogoFragmentArgs.fromBundle(requireArguments()).jogo
 
-        if (livro != null) {
+        if (jogo != null) {
             activity.atualizaTitulo(R.string.editar_jogo_label)
 
             binding.editTextTitulo.setText(jogo.titulo)
@@ -66,7 +68,7 @@ class EditarJogoFragment : Fragment(), LoaderManager.LoaderCallbacks<Cursor> {
             activity.atualizaTitulo(R.string.novo_jogo_label)
         }
 
-        this.livro = livro
+        this.jogo = jogo
     }
 
     override fun onDestroyView() {
@@ -101,31 +103,63 @@ class EditarJogoFragment : Fragment(), LoaderManager.LoaderCallbacks<Cursor> {
         }
 
         val categoriaID = binding.spinnerCategorias.selectedItemId
+        val preco = binding.editTextPreco.text.toString().toDouble()
+        val desenvolvedor = binding.editTextDesenvolvedor.text.toString()
 
-        val data: Date
-        val df = SimpleDateFormat("dd-MM-yyyy")
-        try {
-            data = df.parse(binding.editTextDataPub.text.toString())
-        } catch (e: Exception) {
-            binding.editTextDataPub.error = "Data inválida!"
-            binding.editTextDataPub.requestFocus()
-            return
+        if (jogo == null) {
+            val jogo = Jogo(
+                nome,
+                Categoria("?", 0, "?", categoriaID),
+                desenvolvedor,
+                dataPub,
+                preco
+            )
+
+            insereJogo(jogo)
+        } else {
+            val jogo = jogo!!
+            jogo.nome = nome
+            jogo.categoria = Categoria("?", 0, "?", categoriaID)
+            jogo.desenvolvedor = desenvolvedor
+            jogo.data = dataPub
+            jogo.preco = preco
+
+            alteraJogo(jogo)
         }
+    }
 
-        val calendario = Calendar.getInstance()
-        calendario.time = data
-        val jogo = Jogo(nome, Categoria("?", 0, "?"),"?", calendario, 0.0, categoriaID)
-        requireActivity().contentResolver.insert(
+    private fun alteraJogo(jogo: Jogo) {
+        val enderecoJogo = Uri.withAppendedPath(JogosContentProvider.ENDERECO_JOGOS, jogo.id.toString())
+        val jogosAlterados = requireActivity().contentResolver.update(enderecoJogo, jogo.toContentValues(), null, null)
+
+        if (jogosAlterados == 1) {
+            Toast.makeText(requireContext(), R.string.jogo_guardado_com_sucesso, Toast.LENGTH_LONG).show()
+            voltaListaJogos()
+        } else {
+            binding.editTextTitulo.error = getString(R.string.erro_guardar_jogo)
+        }
+    }
+
+    private fun insereJogo(
+        jogo: Jogo
+    ) {
+        val id = requireActivity().contentResolver.insert(
             JogosContentProvider.ENDERECO_JOGOS,
             jogo.toContentValues()
         )
 
-        if(id == null) {
-            binding.editTextTitulo.error = getString(R.string.n_o_foi_possivel_guardar_o_jogo)
+        if (id == null) {
+            binding.editTextTitulo.error = getString(R.string.erro_guardar_jogo)
             return
         }
 
-        //Toast.makeText(requireContext())
+        Toast.makeText(
+            requireContext(),
+            getString(R.string.jogo_guardado_com_sucesso),
+            Toast.LENGTH_SHORT
+        ).show()
+
+        voltaListaJogos()
     }
 
     /**
