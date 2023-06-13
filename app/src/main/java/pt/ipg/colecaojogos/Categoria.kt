@@ -3,7 +3,6 @@ package pt.ipg.colecaojogos
 import android.content.ContentValues
 import android.database.Cursor
 import android.provider.BaseColumns
-import androidx.core.content.contentValuesOf
 
 data class Categoria(
     var nome: String,

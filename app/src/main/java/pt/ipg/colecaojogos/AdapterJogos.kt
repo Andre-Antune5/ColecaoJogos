@@ -10,10 +10,10 @@ import androidx.recyclerview.widget.RecyclerView.ViewHolder
 
 class AdapterJogos(val fragment: ListaJogosFragment) : RecyclerView.Adapter<AdapterJogos.ViewHolderJogo>() {
     var cursor: Cursor? = null
-    set(value) {
-        field = value
-        notifyDataSetChanged()
-    }
+        set(value) {
+            field = value
+            notifyDataSetChanged()
+        }
 
     inner class ViewHolderJogo(contentor: View) : ViewHolder(contentor) {
         private val textViewTitulo = contentor.findViewById<TextView>(R.id.textViewTitulo)
@@ -27,11 +27,11 @@ class AdapterJogos(val fragment: ListaJogosFragment) : RecyclerView.Adapter<Adap
         }
 
         internal var jogo: Jogo? = null
-        set(value) {
-            field = value
-            textViewTitulo.text = jogo?.nome ?: ""
-            textViewCategoria.text = jogo?.categoria?.nome ?: ""
-        }
+            set(value) {
+                field = value
+                textViewTitulo.text = jogo?.nome ?: ""
+                textViewCategoria.text = jogo?.categoria?.nome ?: ""
+            }
 
         fun seleciona() {
             viewHolderSeleccionado = this

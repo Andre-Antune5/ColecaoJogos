@@ -18,7 +18,7 @@ class TabelaJogos(db: SQLiteDatabase) : TabelaBD(db, NOME_TABELA) {
         having: String?,
         orderby: String?
     ): Cursor {
-        /*
+
         val tabelaJogosAlias = "j"
         val tabelaCategoriasAlias = "c"
         val sql = SQLiteQueryBuilder()
@@ -27,8 +27,8 @@ class TabelaJogos(db: SQLiteDatabase) : TabelaBD(db, NOME_TABELA) {
         //sql.tables = "$NOME_TABELA INNER JOIN ${TabelaCategorias.NOME_TABELA} ON ${TabelaCategorias.CAMPO_ID}=$CAMPO_FK_CATEGORIA"
 
         return sql.query(db, colunas, selecao, argsSelecao, groupby, having, orderby)
-         */
 
+        /*
         val sql = SQLiteQueryBuilder()
         sql.tables = "$NOME_TABELA AS j INNER JOIN ${TabelaCategorias.NOME_TABELA} AS c ON c.${TabelaCategorias.CAMPO_ID}=j.$CAMPO_FK_CATEGORIA"
 
@@ -43,7 +43,7 @@ class TabelaJogos(db: SQLiteDatabase) : TabelaBD(db, NOME_TABELA) {
             projectionMap[coluna] = colunaAlias
         }
         sql.setProjectionMap(projectionMap)
-
+        */
         return sql.query(db, colunas, selecao, argsSelecao, groupby, having, orderby)
     }
 
@@ -74,6 +74,6 @@ class TabelaJogos(db: SQLiteDatabase) : TabelaBD(db, NOME_TABELA) {
         const val CAMPO_IDADE_MIN_CATEGORIA = "c.${TabelaCategorias.CAMPO_IDADE_MIN}"
         const val CAMPO_MAIS_VENDIDO_CATEGORIA = "c.${TabelaCategorias.CAMPO_MAIS_VENDIDO}"
         */
-        val CAMPOS = arrayOf(BaseColumns._ID, CAMPO_NOME, CAMPO_DESENVOLVEDOR, CAMPO_DATA, CAMPO_PRECO, CAMPO_FK_CATEGORIA, CAMPO_NOME_CATEGORIA, CAMPO_IDADE_MIN_CATEGORIA, CAMPO_MAIS_VENDIDO_CATEGORIA)
+        val CAMPOS = arrayOf(CAMPO_ID, CAMPO_NOME, CAMPO_DESENVOLVEDOR, CAMPO_DATA, CAMPO_PRECO, CAMPO_FK_CATEGORIA, CAMPO_NOME_CATEGORIA, CAMPO_IDADE_MIN_CATEGORIA, CAMPO_MAIS_VENDIDO_CATEGORIA)
     }
 }

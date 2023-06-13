@@ -12,16 +12,17 @@ import androidx.loader.app.LoaderManager
 import androidx.loader.content.CursorLoader
 import androidx.loader.content.Loader
 import androidx.navigation.fragment.findNavController
-import pt.ipg.colecaojogos.databinding.FragmentNovoJogoBinding
+import pt.ipg.colecaojogos.databinding.FragmentEditarJogoBinding
 import java.text.SimpleDateFormat
 import java.util.Calendar
 import java.util.Date
 
-
 private const val ID_LOADER_CATEGORIAS = 0
 
-class NovoJogoFragment : Fragment(), LoaderManager.LoaderCallbacks<Cursor> {
-    private var _binding: FragmentNovoJogoBinding? = null
+class EditarJogoFragment : Fragment(), LoaderManager.LoaderCallbacks<Cursor> {
+    private var livro: Jogo?= null
+    private var _binding: FragmentEditarJogoBinding? = null
+    private var dataPub : Calendar? = null
 
     // This property is only valid between onCreateView and
     // onDestroyView.
@@ -31,14 +32,17 @@ class NovoJogoFragment : Fragment(), LoaderManager.LoaderCallbacks<Cursor> {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-
-        _binding = FragmentNovoJogoBinding.inflate(inflater, container, false)
+        _binding = FragmentEditarJogoBinding.inflate(inflater, container, false)
         return binding.root
-
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
+        binding.calendarViewDataPub.setOnDateChangeListener { calendarView, year, month, dayOfMonth ->
+            if (dataPub == null) dataPub = Calendar.getInstance()
+            dataPub!!.set(year, month, dayOfMonth)
+        }
 
         val loader = LoaderManager.getInstance(this)
         loader.initLoader(ID_LOADER_CATEGORIAS, null, this)
@@ -46,6 +50,23 @@ class NovoJogoFragment : Fragment(), LoaderManager.LoaderCallbacks<Cursor> {
         val activity = activity as MainActivity
         activity.fragment = this
         activity.idMenuAtual = R.menu.menu_guardar_cancelar
+
+        val jogo = EditarJogoFragmentArgs.fromBundle(requireArguments()).jogo
+
+        if (livro != null) {
+            activity.atualizaTitulo(R.string.editar_jogo_label)
+
+            binding.editTextTitulo.setText(jogo.titulo)
+            binding.editTextDesenvolvedor.setText(jogo.desenvolvedor)
+            if (jogo.dataPublicacao != null) {
+                dataPub = jogo.dataPublicacao
+                binding.calendarViewDataPub.date = dataPub!!.timeInMillis
+            }
+        } else {
+            activity.atualizaTitulo(R.string.novo_jogo_label)
+        }
+
+        this.livro = livro
     }
 
     override fun onDestroyView() {
@@ -60,15 +81,15 @@ class NovoJogoFragment : Fragment(), LoaderManager.LoaderCallbacks<Cursor> {
                 true
             }
             R.id.action_cancelar -> {
-                cancelar()
+                voltaListaJogos()
                 true
             }
             else -> false
         }
     }
 
-    private fun cancelar() {
-        findNavController().navigate(R.id.action_novoJogoFragment_to_ListaJogosFragment)
+    private fun voltaListaJogos() {
+        findNavController().navigate(R.id.action_editarJogoFragment_to_ListaJogosFragment)
     }
 
     private fun guardar() {

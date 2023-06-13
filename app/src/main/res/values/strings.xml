@@ -57,12 +57,16 @@
     <string name="eliminar">Eliminar</string>
     <string name="novo_jogo_label">Novo Jogo</string>
     <string name="nome">Nome</string>
+    <string name="desenvolvedor">Desenvolvedor</string>
     <string name="categoria">Categoria</string>
-    <string name="data_publicacao">Data Publicação (dd-mm-yyyy)</string>
+    <string name="data_publicacao">Data Publicação</string>
+    <string name="data_publicacao_ddmmyyy">Data Publicação (dd-mm-yyyy)</string>
     <string name="hint">hint</string>
     <string name="guardar">Guardar</string>
     <string name="cancelar">Cancelar</string>
     <string name="NomeObrigatorio">Deve preencher o nome!</string>
     <string name="n_o_foi_possivel_guardar_o_jogo">Não foi possivel guardar o jogo</string>
     <string name="eliminar_jogo" />
+    <string name="preco">Preço</string>
+    <string name="editar_jogo_label">Editar jogo</string>
 </resources>

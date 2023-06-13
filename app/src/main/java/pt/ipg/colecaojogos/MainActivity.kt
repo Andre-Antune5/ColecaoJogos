@@ -1,7 +1,6 @@
 package pt.ipg.colecaojogos
 
 import android.os.Bundle
-import com.google.android.material.snackbar.Snackbar
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.WindowCompat
 import androidx.navigation.findNavController
@@ -63,7 +62,7 @@ class MainActivity : AppCompatActivity() {
 
         val opcaoPorcessada = when (fragment) {
             is ListaJogosFragment -> (fragment as ListaJogosFragment).processaClickMenu(item)
-            is NovoJogoFragment -> (fragment as NovoJogoFragment).processaOpcaoMenu(item)
+            is EditarJogoFragment -> (fragment as EditarJogoFragment).processaOpcaoMenu(item)
             else -> false
         }
 
@@ -79,4 +78,6 @@ class MainActivity : AppCompatActivity() {
     fun mostraOpcaoMenu(idOpcao : Int, mostrar: Boolean) {
         menu.findItem(idOpcao).setVisible(mostrar)
     }
+
+    fun atualizaTitulo(label: Int) = binding.toolbar.setTitle(label)
 }

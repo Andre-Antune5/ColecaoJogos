@@ -3,7 +3,6 @@ package pt.ipg.colecaojogos
 import android.content.Context
 import android.database.sqlite.SQLiteDatabase
 import android.database.sqlite.SQLiteOpenHelper
-import android.provider.BaseColumns
 
 private const val VERSAO_BASE_DADOS = 1
 
@@ -18,7 +17,7 @@ class BDJogosOpenHelper(
      */
     override fun onCreate(db: SQLiteDatabase?) {
         requireNotNull(db)
-        TabelaCategorias(db!!).cria()
+        TabelaCategorias(db).cria()
         TabelaJogos(db).cria()
     }
 
@@ -44,7 +43,7 @@ class BDJogosOpenHelper(
      * @param oldVersion The old database version.
      * @param newVersion The new database version.
      */
-    override fun onUpgrade(p0: SQLiteDatabase?, oldVersion: Int, p2: Int) {
+    override fun onUpgrade(db: SQLiteDatabase?, oldVersion: Int, newVersion: Int) {
     }
 
     companion object {
