@@ -16,6 +16,6 @@ class TabelaCategorias(db: SQLiteDatabase) : TabelaBD(db, NOME_TABELA) {
         const val CAMPO_IDADE_MIN = "idadeMin"
         const val CAMPO_MAIS_VENDIDO = "maisVendido"
 
-        val CAMPOS = arrayOf(BaseColumns._ID, CAMPO_DESCRICAO, CAMPO_IDADE_MIN, CAMPO_MAIS_VENDIDO)
+        val CAMPOS = arrayOf(CAMPO_ID, CAMPO_DESCRICAO, CAMPO_IDADE_MIN, CAMPO_MAIS_VENDIDO)
     }
 }

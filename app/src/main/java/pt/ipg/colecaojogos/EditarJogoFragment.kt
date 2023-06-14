@@ -58,6 +58,7 @@ class EditarJogoFragment : Fragment(), LoaderManager.LoaderCallbacks<Cursor> {
             activity.atualizaTitulo(R.string.editar_jogo_label)
 
             binding.editTextTitulo.setText(jogo.nome)
+            binding.editTextPreco.setText(jogo.preco.toString())
             binding.editTextDesenvolvedor.setText(jogo.desenvolvedor)
             if (jogo.data != null) {
                 dataPub = jogo.data
