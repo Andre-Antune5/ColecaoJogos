@@ -37,17 +37,16 @@ class EliminarJogoFragment : Fragment() {
         val activity = activity as MainActivity
         activity.fragment = this
         activity.idMenuAtual = R.menu.menu_eliminar
-        /*
-        jogo = EliminarJogoFragmentArgs.fromBundle(requireArguments()).livro
+
+        jogo = EliminarJogoFragmentArgs.fromBundle(requireArguments()).jogo
 
         binding.textViewNome.text = jogo.nome
+        binding.textViewPreco.text = jogo.preco.toString()
         binding.textViewDesenvolvedor.text = jogo.desenvolvedor
-        binding.textViewCategoria.text = jogo.categoria.nome
+        binding.textViewCategoria.text = jogo.categoria.descricao
         if (jogo.data != null) {
             binding.textViewDataPub.text = DateFormat.format("yyyy-MM-dd", jogo.data)
         }
-
-         */
     }
 
     override fun onDestroyView() {
